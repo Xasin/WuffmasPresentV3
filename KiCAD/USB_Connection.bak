@@ -1,0 +1,349 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:GND #PWR?
+U 1 1 5C2BCD0C
+P 3650 4400
+F 0 "#PWR?" H 3650 4150 50  0001 C CNN
+F 1 "GND" H 3655 4227 50  0000 C CNN
+F 2 "" H 3650 4400 50  0001 C CNN
+F 3 "" H 3650 4400 50  0001 C CNN
+	1    3650 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 3450 4200 3450
+Wire Wire Line
+	4200 3450 4200 3250
+Wire Wire Line
+	4200 3250 4700 3250
+$Comp
+L Device:C_Small C?
+U 1 1 5C2BD8B5
+P 4450 4250
+F 0 "C?" H 4358 4204 50  0000 R CNN
+F 1 "100nF" H 4358 4295 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4450 4250 50  0001 C CNN
+F 3 "~" H 4450 4250 50  0001 C CNN
+	1    4450 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5550 3125 6000 3125
+Text Label 6000 3125 2    50   ~ 0
+USB3.3
+Wire Wire Line
+	4450 4150 4450 3800
+$Comp
+L power:GND #PWR?
+U 1 1 5C2BEFC1
+P 4450 4400
+F 0 "#PWR?" H 4450 4150 50  0001 C CNN
+F 1 "GND" H 4455 4227 50  0000 C CNN
+F 2 "" H 4450 4400 50  0001 C CNN
+F 3 "" H 4450 4400 50  0001 C CNN
+	1    4450 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 4400 4450 4350
+$Comp
+L Device:C C?
+U 1 1 5C2BF2BB
+P 4700 3100
+F 0 "C?" H 4815 3146 50  0000 L CNN
+F 1 "10uF" H 4815 3055 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4738 2950 50  0001 C CNN
+F 3 "~" H 4700 3100 50  0001 C CNN
+	1    4700 3100
+	1    0    0    -1  
+$EndComp
+Connection ~ 4700 3250
+$Comp
+L power:GND #PWR?
+U 1 1 5C2BF368
+P 4700 2950
+F 0 "#PWR?" H 4700 2700 50  0001 C CNN
+F 1 "GND" H 4705 2777 50  0000 C CNN
+F 2 "" H 4700 2950 50  0001 C CNN
+F 3 "" H 4700 2950 50  0001 C CNN
+	1    4700 2950
+	-1   0    0    1   
+$EndComp
+Text Label 4450 3800 3    50   ~ 0
+USB3.3
+Text HLabel 6150 4000 2    50   Input ~ 0
+U>E
+Text HLabel 6150 4100 2    50   Input ~ 0
+E>U
+Text HLabel 4200 3075 1    50   Input ~ 0
++5V_USB
+Wire Wire Line
+	4200 3075 4200 3250
+Connection ~ 4200 3250
+Text HLabel 6150 5350 2    50   Input ~ 0
+Charge_EN
+$Comp
+L Device:R_Small R?
+U 1 1 5C2DC6E6
+P 6575 5175
+F 0 "R?" V 6379 5175 50  0000 C CNN
+F 1 "220" V 6470 5175 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 6575 5175 50  0001 C CNN
+F 3 "~" H 6575 5175 50  0001 C CNN
+	1    6575 5175
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6450 5175 6475 5175
+Wire Wire Line
+	6675 5175 6950 5175
+Text Label 6950 5175 2    50   ~ 0
+USB3.3
+$Comp
+L Device:Q_NPN_BEC Q?
+U 1 1 5C7FCD9D
+P 8575 3825
+AR Path="/5C7D72A4/5C7FCD9D" Ref="Q?"  Part="1" 
+AR Path="/5C7D6C12/5C7FCD9D" Ref="Q?"  Part="1" 
+AR Path="/5C7D7356/5C7D7380/5C7FCD9D" Ref="Q?"  Part="1" 
+AR Path="/5C7EFA5F/5C7FCD9D" Ref="Q5"  Part="1" 
+AR Path="/5C2BC95D/5C7FCD9D" Ref="Q5"  Part="1" 
+AR Path="/5F7E1AAB/5C7FCD9D" Ref="Q?"  Part="1" 
+F 0 "Q?" H 8450 3750 50  0000 C CNN
+F 1 "Q_NPN_BEC" V 8825 3825 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8775 3925 50  0001 C CNN
+F 3 "~" H 8575 3825 50  0001 C CNN
+F 4 "1727-2956-1-ND" H 8575 3825 50  0001 C CNN "Digi-Key_PN"
+	1    8575 3825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Q_NPN_BEC Q?
+U 1 1 5C80008F
+P 8575 4325
+AR Path="/5C7D72A4/5C80008F" Ref="Q?"  Part="1" 
+AR Path="/5C7D6C12/5C80008F" Ref="Q?"  Part="1" 
+AR Path="/5C7D7356/5C7D7380/5C80008F" Ref="Q?"  Part="1" 
+AR Path="/5C7EFA5F/5C80008F" Ref="Q6"  Part="1" 
+AR Path="/5C2BC95D/5C80008F" Ref="Q6"  Part="1" 
+AR Path="/5F7E1AAB/5C80008F" Ref="Q?"  Part="1" 
+F 0 "Q?" H 8450 4250 50  0000 C CNN
+F 1 "Q_NPN_BEC" V 8825 4325 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8775 4425 50  0001 C CNN
+F 3 "~" H 8575 4325 50  0001 C CNN
+F 4 "1727-2956-1-ND" H 8575 4325 50  0001 C CNN "Digi-Key_PN"
+	1    8575 4325
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5C8010AC
+P 8275 3825
+F 0 "R?" V 8079 3825 50  0000 C CNN
+F 1 "10k" V 8170 3825 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8275 3825 50  0001 C CNN
+F 3 "~" H 8275 3825 50  0001 C CNN
+	1    8275 3825
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5C801129
+P 8275 4325
+F 0 "R?" V 8079 4325 50  0000 C CNN
+F 1 "10k" V 8170 4325 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8275 4325 50  0001 C CNN
+F 3 "~" H 8275 4325 50  0001 C CNN
+	1    8275 4325
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8000 3725 8000 3825
+Wire Wire Line
+	8000 3825 8175 3825
+Connection ~ 8000 3825
+Wire Wire Line
+	8675 4025 8100 4025
+Wire Wire Line
+	8100 4025 8100 4325
+Wire Wire Line
+	8100 4325 8175 4325
+Wire Wire Line
+	8100 4325 7925 4325
+Connection ~ 8100 4325
+Wire Wire Line
+	8675 3625 8675 3575
+Wire Wire Line
+	8675 3575 9225 3575
+Wire Wire Line
+	8675 4125 8675 4075
+Wire Wire Line
+	8675 4075 9025 4075
+Wire Wire Line
+	8000 4525 8675 4525
+Wire Wire Line
+	8000 3825 8000 4525
+Text HLabel 9225 4075 2    50   Input ~ 0
+RST
+Text HLabel 9225 3575 2    50   Input ~ 0
+PROG
+$Comp
+L Device:R_Small R?
+U 1 1 5C852A1E
+P 9025 3950
+F 0 "R?" H 9084 3996 50  0000 L CNN
+F 1 "R_Small" H 9084 3905 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 9025 3950 50  0001 C CNN
+F 3 "~" H 9025 3950 50  0001 C CNN
+	1    9025 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9025 4075 9025 4050
+Connection ~ 9025 4075
+Wire Wire Line
+	9025 4075 9225 4075
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5C853229
+P 9025 3850
+F 0 "#PWR?" H 9025 3700 50  0001 C CNN
+F 1 "+3.3V" H 9040 4023 50  0000 C CNN
+F 2 "" H 9025 3850 50  0001 C CNN
+F 3 "" H 9025 3850 50  0001 C CNN
+	1    9025 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C853370
+P 9025 4200
+F 0 "C?" H 9117 4246 50  0000 L CNN
+F 1 "100nF" H 9117 4155 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9025 4200 50  0001 C CNN
+F 3 "~" H 9025 4200 50  0001 C CNN
+	1    9025 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9025 4075 9025 4100
+$Comp
+L power:GND #PWR?
+U 1 1 5C853BD6
+P 9025 4300
+F 0 "#PWR?" H 9025 4050 50  0001 C CNN
+F 1 "GND" H 9030 4127 50  0000 C CNN
+F 2 "" H 9025 4300 50  0001 C CNN
+F 3 "" H 9025 4300 50  0001 C CNN
+	1    9025 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C86ACE3
+P 5550 4975
+F 0 "#PWR?" H 5550 4725 50  0001 C CNN
+F 1 "GND" H 5555 4802 50  0000 C CNN
+F 2 "" H 5550 4975 50  0001 C CNN
+F 3 "" H 5550 4975 50  0001 C CNN
+	1    5550 4975
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 4050 3700 4050
+Wire Wire Line
+	3600 4050 3650 4050
+Connection ~ 3650 4050
+Wire Wire Line
+	3650 4050 3650 4400
+$Comp
+L Connector:USB_B_Micro J?
+U 1 1 5C2BCA10
+P 3700 3650
+F 0 "J?" H 3755 4117 50  0000 C CNN
+F 1 "USB_B_Micro" H 3755 4026 50  0000 C CNN
+F 2 "Connector_USB:USB_Micro-B_Wuerth_629105150521" H 3850 3600 50  0001 C CNN
+F 3 "~" H 3850 3600 50  0001 C CNN
+F 4 "732-5960-1-ND" H 3700 3650 50  0001 C CNN "Digi-Key_PN"
+	1    3700 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Interface-Controllers:FT231XS-U U?
+U 1 1 5F7E83E8
+P 5450 3800
+F 0 "U?" H 5175 4300 60  0000 C CNN
+F 1 "FT231XS-U" H 5200 4200 60  0000 C CNN
+F 2 "digikey-footprints:SSOP-20_W3.9mm" H 5650 4000 60  0001 L CNN
+F 3 "http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf" H 5650 4100 60  0001 L CNN
+F 4 "768-1156-5-ND" H 5650 4200 60  0001 L CNN "Digi-Key_PN"
+F 5 "FT231XS-U" H 5650 4300 60  0001 L CNN "MPN"
+F 6 "Integrated Circuits (ICs)" H 5650 4400 60  0001 L CNN "Category"
+F 7 "Interface - Controllers" H 5650 4500 60  0001 L CNN "Family"
+F 8 "http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf" H 5650 4600 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/ftdi-future-technology-devices-international-ltd/FT231XS-U/768-1156-5-ND/3749471" H 5650 4700 60  0001 L CNN "DK_Detail_Page"
+F 10 "IC USB SERIAL FULL UART 20SSOP" H 5650 4800 60  0001 L CNN "Description"
+F 11 "FTDI, Future Technology Devices International Ltd" H 5650 4900 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 5650 5000 60  0001 L CNN "Status"
+	1    5450 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 3250 5650 3400
+Wire Wire Line
+	4700 3250 5650 3250
+Wire Wire Line
+	5550 3125 5550 3400
+Wire Wire Line
+	5050 3800 4450 3800
+Text Label 5900 3900 0    50   ~ 0
+USB3.3
+Wire Wire Line
+	5900 3900 5850 3900
+Wire Wire Line
+	4000 3650 4875 3650
+Wire Wire Line
+	4875 3650 4875 3700
+Wire Wire Line
+	4875 3700 5050 3700
+Wire Wire Line
+	5050 3600 4825 3600
+Wire Wire Line
+	4825 3600 4825 3750
+Wire Wire Line
+	4825 3750 4000 3750
+Wire Wire Line
+	5550 4900 5550 4975
+Wire Wire Line
+	5550 4900 5650 4900
+Connection ~ 5550 4900
+$Comp
+L Device:LED DUSB?
+U 1 1 5C2DA5D6
+P 6300 5175
+F 0 "DUSB?" H 6291 5391 50  0000 C CNN
+F 1 "LED" H 6291 5300 50  0000 C CNN
+F 2 "LED_SMD:LED_0805_2012Metric" H 6300 5175 50  0001 C CNN
+F 3 "~" H 6300 5175 50  0001 C CNN
+	1    6300 5175
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 4100 5850 4100
+Wire Wire Line
+	6150 4000 5850 4000
+$EndSCHEMATC
