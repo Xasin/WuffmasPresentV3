@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name CoreSchematic-rescue)(type Legacy)(uri ${KIPRJMOD}/CoreSchematic-rescue.lib)(options "")(descr ""))
+  (lib (name XasParts)(type Legacy)(uri /home/xasin/XasWorks/XasCode/KiCAD/XasParts.lib)(options "")(descr ""))
+)
