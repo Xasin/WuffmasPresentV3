@@ -92,12 +92,16 @@ void effects_task(void *args) {
 		vTaskDelay(25 / portTICK_PERIOD_MS);
 
 		if(get_buttons() > old_buttons) {
+			old_buttons = get_buttons();
 			char bfr[5];
 			itoa(old_buttons, bfr, 2);
 
 			ESP_LOGD("BTNS", "New buttons are: %s", bfr);
 
 			Xasin::Trek::play(Xasin::Trek::KEYPRESS);
+
+			if(old_buttons == 1)
+				mqtt.publish_to(std::string("Wuffcorder/") + unit_nametag + "/BTN", "PLAY", 4);
 		}
 		old_buttons = get_buttons();
 
