@@ -11,6 +11,7 @@
 
 #include <nvs_flash.h>
 #include <driver/gpio.h>
+#include <driver/ledc.h>
 
 #include <xasin/audio/TXStream.h>
 #include <xasin/TrekAudio.h>
@@ -61,9 +62,40 @@ void init_gpio() {
 
 	gpio_config(&input_config);
 }
+void init_dial_pwm() {
+	ledc_timer_config_t pwm_config = {};
+
+	pwm_config.speed_mode = LEDC_LOW_SPEED_MODE;
+	pwm_config.duty_resolution = LEDC_TIMER_12_BIT;
+	pwm_config.timer_num = LEDC_TIMER_0;
+	pwm_config.freq_hz = 160;
+
+	ledc_timer_config(&pwm_config);
+
+	ledc_channel_config_t dial_pwm_cfg = {};
+	dial_pwm_cfg.gpio_num = PIN_DIAL;
+	dial_pwm_cfg.speed_mode = LEDC_LOW_SPEED_MODE;
+	dial_pwm_cfg.timer_sel = LEDC_TIMER_0;
+	dial_pwm_cfg.channel = LEDC_CHANNEL_0;
+	dial_pwm_cfg.intr_type = LEDC_INTR_DISABLE;
+
+	ledc_channel_config(&dial_pwm_cfg);
+}
 
 uint8_t get_buttons() {
 	return (1-gpio_get_level(PIN_BTN_STOP)) | ((1-gpio_get_level(PIN_BTN_PLAY))<<1) | ((1-gpio_get_level(PIN_BTN_REC))<<2);
+}
+void set_dial(float amplitude) {
+	amplitude *= 0.4;
+
+	if(amplitude < 0)
+		ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
+	else if(amplitude < 1)
+		ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 1000 * amplitude);
+	else
+		ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 1000);
+
+	ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
 }
 
 void core_processing_task(void *args) {
@@ -146,6 +178,7 @@ void init() {
 	get_nametag();
 
 	init_gpio();
+	init_dial_pwm();
 
 	xTaskCreate(effects_task, "GFX", 3*1024, nullptr, 10, nullptr);
 
@@ -170,6 +203,8 @@ void init() {
 	mqtt.set_status("READY");
 
 	mqtt_stream.start(false);
+
+	vTaskDelay(10);
 
 	Xasin::Trek::init(audio);
 	Xasin::Trek::play(Xasin::Trek::PROG_DONE);

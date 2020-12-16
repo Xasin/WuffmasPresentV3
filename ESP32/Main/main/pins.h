@@ -34,6 +34,9 @@
 #define PIN_BTN_PLAY  GPIO_NUM_2
 #define PIN_BTN_STOP  GPIO_NUM_5
 
+#define PIN_DIAL	  GPIO_NUM_13
+#define LEDC_DIAL_TIMER LEDC_TIMER_0
+
 #endif
 
 
