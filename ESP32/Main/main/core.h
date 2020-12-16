@@ -17,6 +17,8 @@
 namespace Core {
 
 extern Xasin::Audio::TX 		audio;
+extern Xasin::Audio::RX			microphone;
+
 extern Xasin::MQTT::Handler		mqtt;
 extern Xasin::NeoController::NeoController leds;
 

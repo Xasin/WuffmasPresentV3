@@ -24,6 +24,8 @@ using namespace Xasin;
 namespace Core {
 
 Audio::TX audio;
+Audio::RX microphone;
+
 MQTT::Handler mqtt;
 
 NeoController::NeoController leds(PIN_NEOPIXEL, RMT_CHANNEL_0, 5);
@@ -102,6 +104,12 @@ void core_processing_task(void *args) {
 	while(true) {
 		xTaskNotifyWait(0, 0, nullptr, portMAX_DELAY);
 		audio.largestack_process();
+
+		if(microphone.has_new_audio()) {
+			auto data = microphone.get_buffer();
+
+			mqtt.publish_to("Wuffcorder/TEMP_AUDIO", data.data(), data.size()*2, 0, false);
+		}
 	}
 }
 
@@ -137,17 +145,18 @@ void effects_task(void *args) {
 		}
 		old_buttons = get_buttons();
 
+		ESP_LOGD("BTNS", "Vol Esimate %f", microphone.get_volume_estimate());
+
 		button_fx_tick();
+		if(mqtt_stream.has_audio())
+			set_dial(1 + audio.get_volume_estimate()/40.0);
+		else
+			set_dial(1 + microphone.get_volume_estimate()/40.0);
 
 		for(int i=0; i<button_bulbs.size(); i++)
 			leds[i+1] = button_bulbs[i].tick();
 
-		uint8_t brightness = 50;
-		if(audio.get_volume_estimate() > 0)
-			brightness = 255;
-		else
-			brightness = 255 + 205 * audio.get_volume_estimate()/40;
-		leds[0] = NeoController::Color(Material::ORANGE, brightness);
+		leds[0].merge_overlay(NeoController::Color(Material::ORANGE, mqtt_stream.has_audio() ? 200 : 10), 10);
 
 		leds.update();
 	}
@@ -183,7 +192,7 @@ void init() {
 	xTaskCreate(effects_task, "GFX", 3*1024, nullptr, 10, nullptr);
 
 	TaskHandle_t processing_task;
-	xTaskCreate(core_processing_task, "LARGE", 32768, nullptr, 10, &processing_task);
+	xTaskCreate(core_processing_task, "LARGE", 32768, nullptr, 9, &processing_task);
 
     i2s_pin_config_t pin_config = {
     	PIN_AUDIO_TX_BCK,
@@ -194,7 +203,17 @@ void init() {
 
 	audio.init(processing_task, pin_config);
 	audio.calculate_volume = true;
-	audio.volume_mod = 50;
+	//audio.volume_mod = 50;
+
+	i2s_pin_config_t mic_pin_config = {
+			PIN_AUDIO_RX_BCK,
+			PIN_AUDIO_RX_LRCK,
+			I2S_PIN_NO_CHANGE,
+			PIN_AUDIO_RX_DATA,
+	};
+	microphone.init(processing_task, mic_pin_config);
+	microphone.gain = 5*255;
+	microphone.start();
 
 	for(auto &b : button_bulbs)
 		b = NeoController::Bulb::OK;
