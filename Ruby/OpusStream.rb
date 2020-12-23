@@ -29,7 +29,7 @@ module Xasin
 				@data_thread_instance = Thread.new do
 					data_thread
 				end
-				@data_thread_instance.report_on_exception = true
+				@data_thread_instance.abort_on_exception = true
 			end
 
 			private def data_thread()

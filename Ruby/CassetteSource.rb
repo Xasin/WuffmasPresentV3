@@ -30,7 +30,7 @@ module Xasin
 				return @source_end.get_audio(samp_no) * 0.6  if @source_end.has_audio?
 				if @source_start.has_audio?
 					return 	@source_start.get_audio(samp_no) * 0.6 +
-								@source_hiss.get_audio(samp_no) * 0.4
+								@source_hiss.get_audio(samp_no) * 0.1
 				end
 
 				return nil if @sound_list.empty?
@@ -38,15 +38,11 @@ module Xasin
 				next_sound = @sound_list[0]
 
 				if (@state == :idle) && next_sound.has_audio?
-					puts "Starting up!"
-
 					@source_start.restart
 					@state = :playing
 
 					return @source_start.get_audio(samp_no)
 				elsif (@state == :playing) && !next_sound.has_audio?
-					puts "Finishing up"
-
 					@source_end.restart
 					@state = :idle
 
@@ -57,7 +53,7 @@ module Xasin
 
 					@source_end.restart if @sound_list.empty?
 
-					out_data += @source_hiss.get_audio(samp_no) * 0.4 unless out_data.nil?
+					out_data += @source_hiss.get_audio(samp_no) * 0.1 unless out_data.nil?
 
 					return out_data
 				end

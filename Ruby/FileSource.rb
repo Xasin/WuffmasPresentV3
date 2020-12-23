@@ -24,6 +24,12 @@ module Xasin
 
 				@offset = 0;
 				@repeat = false
+
+				@on_finish = nil;
+			end
+
+			def on_finish(&block)
+				@on_finish = block;
 			end
 
 			def get_audio(samp_no = 48000 * 0.02)
@@ -41,6 +47,8 @@ module Xasin
 						@offset = 0;
 					else
 						@state = :finished
+
+						@on_finish.call() if(@on_finish != nil)
 					end
 
 					o_data *= @volume if @volume
@@ -53,6 +61,7 @@ module Xasin
 					o_data
 				end
 			end
+
 			def has_audio?
 				return @state == :playing
 			end
