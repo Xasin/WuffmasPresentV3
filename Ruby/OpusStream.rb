@@ -24,7 +24,7 @@ module Xasin
 				@output_encoder.vbr_rate = 0;
 				@output_encoder.bitrate = bitrate;
 
-				@per_tick_packet_num = 2;
+				@per_tick_packet_num = 1;
 
 				@data_thread_instance = Thread.new do
 					data_thread
@@ -68,26 +68,30 @@ module Xasin
 
 				has_data = false;
 
-				@config_mutex.synchronize do
-					@per_tick_packet_num.times do
 
-						audio_data.fill 0;
+				@per_tick_packet_num.times do
 
-						@source_list.each do |source|
-							data = source.get_audio()
-							next if data.nil?
+					audio_data.fill 0;
 
-							has_data = true;
-
-							audio_data += data;
-						end
-
-						break unless has_data
-
-						@source_list.delete_if(&:is_done?)
-
-						out_str += encode_audio_data(audio_data);
+					source_copy = nil;
+					@config_mutex.synchronize do
+						source_copy = @source_list.dup
 					end
+
+					source_copy.each do |source|
+						data = source.get_audio()
+						next if data.nil?
+
+						has_data = true;
+
+						audio_data += data;
+					end
+
+					break unless has_data
+
+					@source_list.delete_if(&:is_done?)
+
+					out_str += encode_audio_data(audio_data);
 				end
 
 				@output_block.call(has_data ? out_str : nil);

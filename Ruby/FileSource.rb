@@ -22,10 +22,14 @@ module Xasin
 
 				@raw_data = Numo::Int16.from_string(sox_io.read);
 
+				sox_io.close();
+
 				@offset = 0;
 				@repeat = false
 
 				@on_finish = nil;
+
+				@volume = 0.4;
 			end
 
 			def on_finish(&block)
@@ -48,7 +52,7 @@ module Xasin
 					else
 						@state = :finished
 
-						@on_finish.call() if(@on_finish != nil)
+						@on_finish.call() unless @on_finish.nil?
 					end
 
 					o_data *= @volume if @volume
@@ -71,7 +75,10 @@ module Xasin
 			end
 
 			def stop
+				return if @state == :finished
 				@state = :finished
+
+				@on_finish.call() unless @on_finish.nil?
 			end
 
 			def restart
@@ -86,6 +93,11 @@ module Xasin
 			def resume
 				return if is_done?
 				@state = :playing
+			end
+
+			def toggle_pause
+				return if is_done?
+				@state = (@state == :playing) ? :paused : :playing
 			end
 		end
 	end

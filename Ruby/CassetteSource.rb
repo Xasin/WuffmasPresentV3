@@ -49,7 +49,7 @@ module Xasin
 					return @source_end.get_audio(samp_no);
 				else
 					out_data = next_sound.get_audio(samp_no)
-					@sound_list.drop(0) if(@sound_list[0].is_done?)
+					@sound_list.shift if(@sound_list[0].is_done?)
 
 					@source_end.restart if @sound_list.empty?
 
