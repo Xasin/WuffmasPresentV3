@@ -8,6 +8,8 @@ module Wuff
 		attr_reader :hw_state
 		attr_reader :audio_stream
 
+		attr_accessor :default_rec_dir
+
 		def initialize(mqtt, tag)
 			@mqtt = mqtt;
 			@name = tag;
@@ -17,6 +19,8 @@ module Wuff
 			@pending_files = [];
 			@current_play_file = nil;
 			@recording_filename = nil;
+
+			@default_rec_dir = "/tmp/"
 
 			@audio_stream = Xasin::OpusStream::Output.new do |data|
 				pub "Audio/In", data, qos: 0 unless data.nil?
@@ -47,6 +51,10 @@ module Wuff
 			@mqtt.subscribe_to "Wuffcorder/#{tag}/BTN" do |btn|
 				handle_button btn;
 			end
+		end
+
+		def on_record_done(&block)
+			@on_record_done = block;
 		end
 
 		def handle_button(btn)
@@ -87,14 +95,14 @@ module Wuff
 			if discard_rec
 				File.delete(@recording_filename)
 			else
-				self << @recording_filename
+				@on_record_done&.call(@recording_filename);
 			end
 
 			@recording_filename = nil;
 		end
 
 		def start_recording(file = nil)
-			file ||= "/tmp/WuffRecord-#{@name}-#{Time.now().strftime("%Y-%m-%d_%H-%M-%S")}.ogg"
+			file ||= "#{@default_rec_dir}/WuffRecord-#{@name}-#{Time.now().strftime("%Y-%m-%d_%H-%M-%S")}.ogg"
 
 			@recording_filename = file;
 
