@@ -1,0 +1,8 @@
+{
+    "idf.espIdfPath": "/opt/ESP/vscodium/esp-idf",
+    "idf.toolsPath": "/home/xasin/.espressif/tools",
+    "files.associations": {
+        "array": "cpp"
+    },
+    "idf.port": "/dev/ttyUSB0"
+}
